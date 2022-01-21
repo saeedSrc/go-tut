@@ -12,7 +12,6 @@ type person struct {
 func main() {
   foo()
   bar()
-
 }
 
 
