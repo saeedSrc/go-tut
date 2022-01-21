@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"sync"
+	// "sync"
 )
 
 type person struct {
@@ -10,26 +10,23 @@ type person struct {
 	Lastname  string
 }
 
-var wg sync.WaitGroup
+// var wg sync.WaitGroup
 
 func main() {
 
-	wg.Add(1)
-	go foo()
-	bar()
 
-	wg.Wait()
-}
+	counter := 0
+	// wg.Add(1)
 
-func foo() {
-	for i := 0; i < 10; i++ {
-		fmt.Println("foo:", i)
+	for i :=0;i<10;i++ {
+		go func(){
+			v := counter
+			v++
+			counter = v
+			fmt.Println(counter)
+	
+		}()
 	}
-	wg.Done()
-}
-
-func bar() {
-	for i := 0; i < 10; i++ {
-		fmt.Println("bar:", i)
-	}
+	
+	// wg.Wait()
 }
