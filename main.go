@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	// "sync"
+	"sync"
+	"sync/atomic"
 )
 
 type person struct {
@@ -10,23 +11,28 @@ type person struct {
 	Lastname  string
 }
 
-// var wg sync.WaitGroup
+var wg sync.WaitGroup
+
+// var mu sync.Mutex
 
 func main() {
 
+	var counter int64
+	wg.Add(10)
 
-	counter := 0
-	// wg.Add(1)
+	for i := 0; i < 10; i++ {
+		go func() {
 
-	for i :=0;i<10;i++ {
-		go func(){
-			v := counter
-			v++
-			counter = v
-			fmt.Println(counter)
-	
+			// mu.Lock()
+
+			atomic.AddInt64(&counter, 1)
+			fmt.Println(atomic.LoadInt64(&counter))
+
+			// mu.Unlock()
+			wg.Done()
 		}()
+
 	}
-	
-	// wg.Wait()
+
+	wg.Wait()
 }
