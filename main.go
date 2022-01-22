@@ -1,38 +1,23 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-	"sync/atomic"
-)
-
-type person struct {
-	Firstname string
-	Lastname  string
-}
-
-var wg sync.WaitGroup
-
-// var mu sync.Mutex
+import "fmt"
 
 func main() {
+	var chan1 = make(chan int, 10)
 
-	var counter int64
-	wg.Add(10)
+	// go func() {
+		for i := 0; i < 10; i++ {
+			chan1 <- i
 
-	for i := 0; i < 10; i++ {
-		go func() {
-
-			// mu.Lock()
-
-			atomic.AddInt64(&counter, 1)
-			fmt.Println(atomic.LoadInt64(&counter))
-
-			// mu.Unlock()
-			wg.Done()
-		}()
-
-	}
-
-	wg.Wait()
+			fmt.Println(<-chan1)
+		}
+		// }()
+		
+		
+		go func ()  {
+			for v := range chan1 {
+				fmt.Println(v)
+			}
+			}()
+			close(chan1)
 }
