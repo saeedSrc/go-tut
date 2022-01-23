@@ -2,70 +2,56 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
+	"time"
 )
 
 func main() {
 
-	var chan1 = make(chan int)
-	var chan2 = make(chan int)
-	var chan3 = make(chan int)
+	var ch1 = make(chan int)
+	var ch2 = make(chan int)
+	go populate(ch1)
 
+	go fanoutin(ch1, ch2)
 
-	go send(chan1, chan2)
-
-
-	go receive(chan1, chan2, chan3)
-
-	for v:= range chan3 {
+	for v:=range ch2 {
 		fmt.Println(v)
 	}
 
-
-	fmt.Println("abou to ecxit")
-
+    fmt.Println("exit")
 }
 
-func send(e, o chan<- int){
-	for i:=0; i<11; i++ {
-		if i%2 == 0 {
-          e<- i
-		} else {
-			o<-i
-		}
 
-		
+func populate(c chan int) { 
+	for i:=0;i<10;i++ {
+		     c<-i
 	}
-	close(e)
-		close(o)
+	close(c)
 }
 
-func receive(e, o <-chan int, fan chan<- int){
+
+func fanoutin(c1, c2 chan int) {
+
+
 	var wg  sync.WaitGroup
 
-	wg.Add(2)
-
-	go func(){
-		for v:= range e {
-			fan <- v
-		}
-
-		wg.Done()
-
-	}()
-
-	go func(){
-		for v:= range o {
-			fan <- v
-		}
-
-		wg.Done()
-		}()
-
-		wg.Wait()
-
-		close(fan)
-
+	for v:= range c1 {
+		wg.Add(1)
+		go func (v2 int)  {
+			c2<-timeConsumingWork(v2)
+			wg.Done()
+		}(v)
+   
+	}
+ 
+	wg.Wait()
+	close(c2)
 }
 
-	
+func timeConsumingWork(v int) int {
+
+	time.Sleep(time.Microsecond * 10)
+
+	return v + rand.Intn(500)
+}
