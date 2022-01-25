@@ -1,42 +1,37 @@
+
 package main
 
+// import some
 import (
-	"context"
 	"fmt"
-	"runtime"
-	"time"
 )
 
+var costumizeErr = fmt.Errorf("this is formatted err : %v", "format")
+
+type devide struct {
+	first int
+	last  int
+	text  string
+}
+
+
 func main() {
+  saeed := devide {
+	  1,2, "salam",
+  }
 
-	var ctx = context.Background()
+  saeed.Devider(1, 2)
+}
 
-	var ctx2, cancel = context.WithCancel(ctx)
+//Devider This is devider package
+func (d devide) Devider(f, l int) (result float64,  err error) {
+	if l == 0 {
+		return 0, costumizeErr
+	}
 
+	return 1, nil
+}
 
-	go func() {
-		n := 0
-		for {
-			select {
-			case <-ctx2.Done():
-				return
-			default:
-				n++
-				time.Sleep(time.Microsecond * 100)
-                fmt.Println("working:", n)
-			}
-		}
-	} ()
-
-
-
-	time.Sleep(2 * time.Second)
-
-	cancel()
-
-
-
-	fmt.Println(runtime.NumGoroutine())
-
-    fmt.Println("exit")
+func (d devide) Error() string {
+	return d.text
 }
