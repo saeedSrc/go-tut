@@ -4,15 +4,16 @@ import "fmt"
 
 func main() {
 
-	a := 43
+	a := 2
+	// 0010
+	// 1110
 
-	fmt.Println(a)
+	// 0010
 
-	convert(&a)
-	fmt.Println(a)
+	// 1110
+	b := 14
 
-}
+	b = b | a
+	fmt.Println(b)
 
-func convert(b *int) {
-	*b = 10
 }
