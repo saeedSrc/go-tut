@@ -4,6 +4,15 @@ import "fmt"
 
 func main() {
 
-	fmt.Println("the main methid")
+	a := 43
 
+	fmt.Println(a)
+
+	convert(&a)
+	fmt.Println(a)
+
+}
+
+func convert(b *int) {
+	*b = 10
 }
