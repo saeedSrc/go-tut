@@ -1,32 +1,32 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
+	words := make(map[string]string)
 
-	c1 := make(chan string)
-	// c2 := make(chan string)
-	// go func() {
+	words["saeeed"] = ""
+	words["hamid"] = ""
+	words["samajideeed"] = ""
+	words["haw"] = ""
+	words["asdads"] = ""
+	words["saasdasdeeed"] = ""
+	words["ljasld"] = ""
+	words["wquey"] = ""
+	words["kweqg"] = ""
+	words["sqqweeeed"] = ""
+	words["wqqq"] = ""
+	words["qqqq"] = ""
 
-	// }()
+	repeats := make(map[byte]int)
+	for k, _ := range words {
 
-	c1 <- "one"
-	go func() {
+		repeats[k[0]]]++
+		// if _, ok := repeats[k[0]]; !ok {
+		// }
+	}
 
-		fmt.Println(<-c1)
-	}()
-
-	fmt.Println("hi")
-
-	// for i := 0; i < 2; i++ {
-	//     select {
-	//     case msg1 := <-c1:
-	//         fmt.Println("received", msg1)
-	//     case msg2 := <-c2:
-	//         fmt.Println("received", msg2)
-	//     }
-	// }
-	fmt.Println("about to exit")
+	for k, v := range repeats {
+		fmt.Println(string(k), v)
+	}
 }
