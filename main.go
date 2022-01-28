@@ -6,27 +6,25 @@ func main() {
 	words := make(map[string]string)
 
 	words["saeeed"] = ""
-	words["hamid"] = ""
-	words["samajideeed"] = ""
-	words["haw"] = ""
-	words["asdads"] = ""
-	words["saasdasdeeed"] = ""
-	words["ljasld"] = ""
-	words["wquey"] = ""
-	words["kweqg"] = ""
-	words["sqqweeeed"] = ""
-	words["wqqq"] = ""
-	words["qqqq"] = ""
 
 	repeats := make(map[byte]int)
 	for k, _ := range words {
 
-		repeats[k[0]]]++
+		repeats[k[0]]++
+		fmt.Println(hashWords(k, 12))
 		// if _, ok := repeats[k[0]]; !ok {
 		// }
 	}
 
-	for k, v := range repeats {
-		fmt.Println(string(k), v)
+}
+
+func hashWords(word string, hash int) int {
+
+	sum := 0
+	for _, v := range word {
+
+		sum += int(v)
 	}
+
+	return sum % 12
 }
