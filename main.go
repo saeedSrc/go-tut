@@ -1,30 +1,33 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
+
+type people []string
+
+func (x people) Len() int { return len(x) }
+
+func (x people) Less(i, j int) bool { return x[i] < x[j] }
+
+func (x people) Swap(i, j int) { x[i], x[j] = x[j], x[i] }
 
 func main() {
-	words := make(map[string]string)
+	// saeed2 := []string{"ahmad", "rajab", "sasee", "sfaga", "sdasdkahwuqwqwfq", "Qqqqq", "afakafa", "wfksdf"}
+	saeed3 := []int{3, 5, 3, 2, 4, 5, 7, 5, 4, 1, 9}
+	var gam interface{}
+	gam = saeed3
 
-	words["saeeed"] = ""
+	gam = 32
 
-	repeats := make(map[byte]int)
-	for k, _ := range words {
+	gam = "hamaid"
+	fmt.Println(gam)
+	// sort.StringSlice.Sort(saeed2)
+	// fmt.Println(saeed2)
 
-		repeats[k[0]]++
-		fmt.Println(hashWords(k, 12))
-		// if _, ok := repeats[k[0]]; !ok {
-		// }
-	}
+	sort.Sort(sort.Reverse(sort.IntSlice(saeed3)))
+	// sort.Ints(saeed3)
 
-}
-
-func hashWords(word string, hash int) int {
-
-	sum := 0
-	for _, v := range word {
-
-		sum += int(v)
-	}
-
-	return sum % 12
+	fmt.Println(saeed3)
 }
